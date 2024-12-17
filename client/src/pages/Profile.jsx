@@ -27,8 +27,6 @@ const Profile = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -52,12 +50,11 @@ const Profile = () => {
     }
   };
 
-
-  const handleDeleteUser= async () => {
+  const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
       const data = await res.json();
       if (data.success === false) {
@@ -70,24 +67,21 @@ const Profile = () => {
     }
   };
 
-
-
-  const handleSignOut = async () =>{
-
+  const handleSignOut = async () => {
     try {
-      dispatch(signOutUserStart())
-      const res = await fetch('/api/auth/signout');
+      dispatch(signOutUserStart());
+      const res = await fetch("/api/auth/signout");
       const data = await res.json();
 
-      if(data.success === false){
-        dispatch(deleteUserFailure())
+      if (data.success === false) {
+        dispatch(deleteUserFailure());
         return;
       }
-      dispatch(deleteUserSuccess(data))
+      dispatch(deleteUserSuccess(data));
     } catch (error) {
-      dispatch(deleteUserFailure(data.message))
+      dispatch(deleteUserFailure(data.message));
     }
-  }
+  };
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -129,11 +123,15 @@ const Profile = () => {
         </button>
       </form>
       <div className="flex justify-between mt-5">
-      <span
+        <span
           onClick={handleDeleteUser}
-          className='text-red-700 cursor-pointer'
-        >Delete Account</span>
-        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">Sign Out</span>
+          className="text-red-700 cursor-pointer"
+        >
+          Delete Account
+        </span>
+        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
+          Sign Out
+        </span>
       </div>
       <p className="text-red-700 mt-5">{error ? error : ""}</p>
       <p className="text-green-700 mt-5">
